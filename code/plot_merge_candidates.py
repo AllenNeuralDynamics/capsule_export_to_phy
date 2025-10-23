@@ -96,8 +96,11 @@ def main():
             good_channel_ids = recording.channel_ids[np.isin(recording.channel_ids, we.channel_ids)]
             recording = recording.select_channels(good_channel_ids)
         else:
-            good_channel_mask = np.isin(recording.channel_ids, we.channel_ids)
-            recording = recording.channel_slice(recording.channel_ids[good_channel_mask])
+            channels = recording.channel_ids[np.isin(recording.channel_ids, we.channel_ids)]
+            if hasattr(recording, 'channel_slice'):
+                recording = recording.channel_slice(channels)
+            elif hasattr(recording, 'select_channels'):
+                recording = recording.select_channels(channels)
 
         recording = spre.common_reference(recording)
         recording = spre.phase_shift(recording)

@@ -4,7 +4,8 @@ set -ex
 # export OMP_THREAD_LIMIT=1
 # export OPENBLAS_NUM_THREADS=1
 
-source install_spikeinterface.sh
+# source install_spikeinterface.sh
+pip install --no-cache-dir --ignore-installed spikeinterface[full] -U
 
 pip install pydantic-settings
 
