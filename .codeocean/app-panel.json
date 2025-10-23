@@ -6,21 +6,19 @@
 			"id": "U7T2KRR0pLvyecUz",
 			"name": "filter_type",
 			"param_name": "filter_type",
-			"description": "",
 			"type": "text",
 			"value_type": "string",
-			"validation_pattern": "\b(highpass|bandpass)\b"
+			"default_value": "highpass"
 		},
 		{
 			"id": "CLnGBLMVID8fEr6b",
 			"name": "compute_pc_features",
 			"param_name": "compute_pc_features",
-			"description": "",
 			"type": "text",
 			"value_type": "integer",
 			"default_value": "1",
-			"maximum": 1,
-			"minimum": 0
+			"minimum": 0,
+			"maximum": 1
 		}
 	]
 }

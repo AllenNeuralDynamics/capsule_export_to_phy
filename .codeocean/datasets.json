@@ -2,8 +2,12 @@
 	"version": 1,
 	"attached_datasets": [
 		{
-			"id": "b59511ab-e888-4f96-8772-5627adc12e31",
-			"mount": "dynamicrouting_datacube_v0.0.261"
+			"id": "466b6c72-2356-4e7e-92ec-f8b33929f237",
+			"mount": "ecephys_742903_2024-10-22_10-58-35_sorted_2024-11-19_17-26-01"
+		},
+		{
+			"id": "e2e0cfef-b1b1-4987-86e7-ca9b98b30759",
+			"mount": "ecephys_742903_2024-10-22_10-58-35"
 		}
 	]
 }

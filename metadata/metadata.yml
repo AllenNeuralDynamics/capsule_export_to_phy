@@ -1,5 +1,7 @@
 metadata_version: 1
-name: dynamicrouting-processing-template
-description: Basic structure of a capsule to be customized as needed.
+name: export_to_phy
+description: Export SpikeInterface results to Phy
 authors:
+- name: Alessio Buccino
+- name: Sue Su
 - name: Ben Hardcastle

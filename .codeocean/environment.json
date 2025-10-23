@@ -3,7 +3,8 @@
 	"base_image": "codeocean/mambaforge3:23.1.0-4-python3.10.12-ubuntu22.04",
 	"options": {
 		"registry_host_arg": true,
-		"git_ask_pass": true
+		"git_ask_pass": true,
+		"mount_secrets": true
 	},
 	"installers": {
 		"apt": {
@@ -18,48 +19,63 @@
 		"pip3": {
 			"packages": [
 				{
-					"name": "aind-data-schema",
-					"version": "0.15.25"
+					"name": "aind-session",
+					"version": "0.1.18"
 				},
 				{
 					"name": "mearec",
 					"version": "1.9.0"
 				},
 				{
+					"name": "pandas",
+					"version": "2.3.3"
+				},
+				{
+					"name": "pydantic",
+					"version": "2.10.6"
+				},
+				{
 					"name": "pyvips",
 					"version": "2.2.1"
-				},
-				{
-					"name": "wavpack-numcodecs",
-					"version": "0.1.5"
-				},
-				{
-					"name": "pandas",
-					"version": "2.2.2"
 				},
 				{
 					"name": "scikit-learn",
 					"version": "1.6.1"
 				},
 				{
-					"name": "aind-session",
-					"version": "0.3.20"
-				},
-				{
-					"name": "spikeinterface",
+					"name": "spikeinterface[full]",
 					"version": "0.100.1"
 				},
 				{
-					"name": "pydantic",
-					"version": "2.7.4"
-				},
-				{
-					"name": "zarr",
-					"version": "2.17.2"
+					"name": "wavpack-numcodecs",
+					"version": "0.1.5"
 				}
 			],
 			"options": {},
 			"pre_install_options": {}
+		},
+		"vscode": {
+			"packages": [
+				{
+					"name": "continue.continue"
+				},
+				{
+					"name": "ms-python.python"
+				},
+				{
+					"name": "ms-toolsai.jupyter"
+				},
+				{
+					"name": "reageyao.biosyntax"
+				},
+				{
+					"name": "reditorsupport.r"
+				},
+				{
+					"name": "saoudrizwan.claude-dev"
+				}
+			],
+			"version": "4.100.3"
 		}
 	}
 }

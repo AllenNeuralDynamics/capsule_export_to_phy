@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -ex
 
-version=$(grep -rho '"version": *"0\.1[0-9][0-9]\.[0-9]\+"' /root/capsule/data --include="*.json" | head -n 1 | sed -E 's/.*"version": *"([^"]+)".*/\1/')
+export OMP_THREAD_LIMIT=1
+export OPENBLAS_NUM_THREADS=1
 
-pip install --no-cache-dir --ignore-installed spikeinterface[full]=="$version"
+source install_spikeinterface.sh
 
-python -u export_single.py "$@"
+pip install pydantic-settings
+
+python -u export_to_phy.py "$@"

@@ -1,11 +1,9 @@
-# hash:sha256:fb02d029d0165a438bfd6b6db77cca8e2bcdd79d834dd92f029cabc566b79a94
+# hash:sha256:b3722d7efb10c9d77c64ca6b930bd6dd51c048dfd73c891a7db7fd9832068ec4
 ARG REGISTRY_HOST
 FROM $REGISTRY_HOST/codeocean/mambaforge3:23.1.0-4-python3.10.12-ubuntu22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-
 ARG GIT_ASKPASS
-ARG GIT_ACCESS_TOKEN
 COPY git-askpass /
 
 RUN apt-get update \
@@ -14,13 +12,26 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install -U --no-cache-dir \
-    code-ocean-aux-tools==1.1.3 \
-    hdmf==3.14.6 \
-    numba==0.60.0 \
-    pandas[all]==2.2.3 \
-    polars[plot]==1.21.0 \
-    pynwb==2.8.2 \
-    s3fs==2024.10.0 \
-    scikit-learn==1.5.2 \
-    universal-pathlib==0.1.4 \
-    zarr==2.17.2
+    aind-session==0.1.18 \
+    mearec==1.9.0 \
+    pandas==2.3.3 \
+    pydantic==2.10.6 \
+    pyvips==2.2.1 \
+    scikit-learn==1.6.1 \
+    spikeinterface[full]==0.100.1 \
+    wavpack-numcodecs==0.1.5
+
+ADD "https://github.com/coder/code-server/releases/download/v4.100.3/code-server-4.100.3-linux-amd64.tar.gz" /.code-server/code-server.tar.gz
+	
+RUN cd /.code-server \
+    && tar -xvf code-server.tar.gz \
+    && rm code-server.tar.gz \
+    && ln -s /.code-server/code-server-4.100.3-linux-amd64/bin/code-server /usr/bin/code-server \
+    && mkdir -p /.vscode/extensions
+
+RUN code-server --extensions-dir="/.vscode/extensions" --install-extension continue.continue \
+    && code-server --extensions-dir="/.vscode/extensions" --install-extension ms-python.python \
+    && code-server --extensions-dir="/.vscode/extensions" --install-extension ms-toolsai.jupyter \
+    && code-server --extensions-dir="/.vscode/extensions" --install-extension reageyao.biosyntax \
+    && code-server --extensions-dir="/.vscode/extensions" --install-extension reditorsupport.r \
+    && code-server --extensions-dir="/.vscode/extensions" --install-extension saoudrizwan.claude-dev

@@ -159,9 +159,9 @@ def process_session(session_id: str, params: Params) -> None:
         print(f'Processing {phy_folder}')
 
         if is_sorting_analyzer:
-            we_recless = si.load(postprocessed_folder / stream_name)
+            we_recless = si.load(postprocessed_folder / stream.name)
         else:
-            we_recless = si.load_waveforms(postprocessed_folder / stream_name, with_recording=False)
+            we_recless = si.load_waveforms(postprocessed_folder / stream.name, with_recording=False)
 
         # load recording
         recording = si.read_zarr(next(p for p in ecephys_compressed_folder.iterdir() if stream_name.split('_recording')[0] in p.name))
