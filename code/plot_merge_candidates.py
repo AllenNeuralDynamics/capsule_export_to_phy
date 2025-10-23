@@ -5,8 +5,11 @@ import spikeinterface.widgets as sw
 import numpy as np
 import os
 from pathlib import Path
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import npc_session
+import tqdm
 
 from export_to_phy import *
 
@@ -61,18 +64,22 @@ def main():
 
     # stream name: 
     streams =  sorted(
-        p
-        for p in postprocessed_folder.iterdir() 
-        if p.is_dir() and "post" not in p.name
-        and f'experiment{longest["experiment"]}' in p.name   
-        and f'recording{longest["recording"]}' in p.name 
+        [
+            p
+            for p in postprocessed_folder.iterdir() 
+            if p.is_dir() and "post" not in p.name
+            and f'experiment{longest["experiment"]}' in p.name   
+            and f'recording{longest["recording"]}' in p.name 
+        ],
+        key=lambda p: p.name.split('#')[-1],
     )
     colors=["C0", "C1"]
     results_folder = Path('/root/capsule/results/plots')
     results_folder.mkdir(exist_ok=True, parents=True)
 
-    for stream in sorted(streams, key=lambda p: p.name.split('#')[-1]):
+    for stream in streams:
         stream_name = stream.name.removesuffix('.zarr')
+        probe = npc_session.ProbeRecord(stream.name)
 
         if is_sorting_analyzer:
             we = si.load(postprocessed_folder / stream.name)
@@ -110,7 +117,7 @@ def main():
         #['min_spikes', 'remove_contaminated', 'unit_positions', 'correlogram', 'template_similarity']
         potential_merges = sc.get_potential_auto_merge(we, steps=steps, maximum_distance_um=40, minimum_spikes=200)
         
-        for units in tqdm.tqdm(potential_merges):
+        for units in tqdm.tqdm(potential_merges, desc='plotting'):
             label = f'probe{probe}_{units[0]}-{units[1]}'
             title = we.folder.as_posix().removeprefix('/root/capsule/data/ecephys_')
             colors_dict = dict(zip(units, colors))

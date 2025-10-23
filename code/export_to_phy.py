@@ -143,11 +143,14 @@ def process_session(session_id: str, params: Params) -> None:
 
     # stream name: 
     streams =  sorted(
-        p
-        for p in postprocessed_folder.iterdir() 
-        if p.is_dir() and "post" not in p.name
-        and f'experiment{longest["experiment"]}' in p.name   
-        and f'recording{longest["recording"]}' in p.name 
+        [
+            p
+            for p in postprocessed_folder.iterdir() 
+            if p.is_dir() and "post" not in p.name
+            and f'experiment{longest["experiment"]}' in p.name   
+            and f'recording{longest["recording"]}' in p.name 
+        ],
+        key=lambda p: p.name.split('#')[-1],
     )
 
     for stream in streams:
